@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TikTok Web - Videos, Shop &amp; LIVE. Scroll For You feed, watch short videos, go LIVE, shop trending products, create &amp; edit clips with music &amp; effects. Fully functional mobile-first demo.">
+    <meta name="keywords" content="tiktok web, tiktok clone, short videos web, for you feed, musically web, live streaming demo, tiktok shop, video creator web">
+    <meta name="author" content="SAMER SAEID">
+    <meta name="robots" content="index, follow">
+    <title>TikTok Web - Videos, Shop &amp; LIVE</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="canonical" href="https://yourdomain.com/tiktok-web">
+</head>
+<body class="bg-black text-white">
+
+    <!-- TOP BAR (mobile style) -->
+    <div class="top-bar d-flex align-items-center justify-content-between px-3 py-2 border-bottom border-white border-opacity-10 sticky-top">
+        <div class="d-flex align-items-center">
+            <i class="bi bi-music-note-beat fs-3 text-danger me-1"></i>
+            <span class="fw-bold fs-4">TikTok</span>
+        </div>
+        <div onclick="switchTab(1)" class="d-flex align-items-center bg-white bg-opacity-10 rounded-pill px-4 py-1">
+            <i class="bi bi-search me-2"></i>
+            <span class="small">Search videos, creators...</span>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+            <i onclick="switchTab(5)" class="bi bi-person-circle fs-4"></i>
+            <div class="position-relative">
+                <i class="bi bi-bell fs-4"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge bg-danger rounded-pill">9+</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="pb-5" style="padding-bottom:70px;">
+
+        <!-- TAB 0: FOR YOU FEED -->
+        <div id="tab-0" class="tab-panel active">
+            <div id="videoFeed" class="feed-container">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+
+        <!-- TAB 1: DISCOVER / SEARCH -->
+        <div id="tab-1" class="tab-panel">
+            <h4 class="px-3 py-3 mb-0 text-danger"><i class="bi bi-search me-2"></i>Discover</h4>
+            <div class="px-3">
+                <input id="discoverSearch" type="text" class="form-control bg-dark border-0 text-white rounded-pill py-3 mb-3" placeholder="Search creators, sounds, hashtags...">
+            </div>
+            <div id="trendingGrid" class="row g-2 px-2"></div>
+        </div>
+
+        <!-- TAB 2: CREATE -->
+        <div id="tab-2" class="tab-panel text-center py-5">
+            <div class="mx-auto" style="max-width:320px;">
+                <div class="bg-dark rounded-4 p-5 mb-4">
+                    <i class="bi bi-camera-video fs-1 text-danger mb-4"></i>
+                    <h3 class="fw-bold">Create your video</h3>
+                    <p class="text-white-50">Record, upload, or use templates</p>
+                    <div class="d-grid gap-2">
+                        <button onclick="fakeRecord()" class="btn btn-danger py-3 rounded-pill"><i class="bi bi-record-circle me-2"></i>Record now</button>
+                        <button onclick="fakeUpload()" class="btn btn-outline-light py-3 rounded-pill"><i class="bi bi-cloud-upload me-2"></i>Upload from device</button>
+                    </div>
+                </div>
+                <div class="text-white-50 small">Effects • Sounds • Templates • AI tools</div>
+            </div>
+        </div>
+
+        <!-- TAB 3: INBOX / LIVE -->
+        <div id="tab-3" class="tab-panel">
+            <h4 class="px-3 py-3 mb-0 text-danger"><i class="bi bi-lightning-charge me-2"></i>LIVE &amp; Messages</h4>
+            <div id="liveStreams" class="px-3"></div>
+            <h6 class="px-3 mt-4 mb-2 text-white-50">Messages</h6>
+            <div id="messagesList" class="list-group"></div>
+        </div>
+
+        <!-- TAB 4: PROFILE -->
+        <div id="tab-4" class="tab-panel">
+            <div class="text-center pt-4">
+                <div class="mx-auto mb-3" style="width:96px;height:96px;background:linear-gradient(#ff0050,#00f2ea);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#000;font-size:2.5rem;">🧸</div>
+                <h4 class="fw-bold">@samer_saeid</h4>
+                <p class="text-white-50">SAMER SAEID • 1.2M Followers</p>
+                <div class="d-flex justify-content-center gap-4 my-4">
+                    <div class="text-center"><div class="fw-bold">42</div><small>Following</small></div>
+                    <div class="text-center"><div class="fw-bold">1.2M</div><small>Followers</small></div>
+                    <div class="text-center"><div class="fw-bold">8.4M</div><small>Likes</small></div>
+                </div>
+            </div>
+            <h6 class="px-3 mb-2">Your videos</h6>
+            <div id="profileVideos" class="row g-2 px-3"></div>
+        </div>
+    </main>
+
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="bottom-nav fixed-bottom bg-black border-top border-white border-opacity-10">
+        <div class="d-flex justify-content-around py-2">
+            <div onclick="switchTab(0)" class="nav-item text-center active">
+                <i class="bi bi-house-door-fill fs-3"></i>
+                <div class="small">For you</div>
+            </div>
+            <div onclick="switchTab(1)" class="nav-item text-center">
+                <i class="bi bi-compass fs-3"></i>
+                <div class="small">Discover</div>
+            </div>
+            <div onclick="switchTab(2)" class="nav-item text-center create-btn">
+                <i class="bi bi-plus-circle-fill fs-1 text-danger"></i>
+            </div>
+            <div onclick="switchTab(3)" class="nav-item text-center">
+                <i class="bi bi-lightning-charge fs-3"></i>
+                <div class="small">LIVE</div>
+            </div>
+            <div onclick="switchTab(4)" class="nav-item text-center">
+                <i class="bi bi-person-circle fs-3"></i>
+                <div class="small">Me</div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- COMMENT MODAL -->
+    <div class="modal fade" id="commentModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content bg-black border-0">
+                <div class="modal-header border-white border-opacity-10">
+                    <h5 class="modal-title">Comments <span id="commentCount" class="text-white-50"></span></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div id="commentList" class="modal-body" style="max-height:60vh;overflow-y:auto;"></div>
+                <div class="modal-footer border-white border-opacity-10">
+                    <div class="input-group">
+                        <input id="commentInput" type="text" class="form-control bg-dark text-white border-0 rounded-pill" placeholder="Add comment...">
+                        <button onclick="postComment()" class="btn btn-danger rounded-pill px-4">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-white py-3 border-top border-white border-opacity-10 text-center small">
+        <div class="container">
+            <span class="text-danger">&copy; Copyright SAMER SAEID</span><br>
+            Made by ♥️ <a href="https://bio.link/samer" target="_blank" class="text-white text-decoration-none fw-bold">SAMER SAEID</a>
+            <div class="mt-2 text-white-50">Fully responsive TikTok web clone • Works on all devices</div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
